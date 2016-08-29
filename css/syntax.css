@@ -83,19 +83,19 @@
 .highlight .il { color: #009999; }
 .highlight .gc { color: #999; background-color: #EAF2F5; }*/
 
-.highlight pre, pre, .highlight .hll { background-color: #292c34; color: #93a1a1; border: 1px solid #eeeeee; padding: 6px 10px; border-radius: 6px; }
+.highlight pre, pre, .highlight .hll { background-color: #fefefe; color: #93a1a1; border: 1px solid #eeeeee; padding: 6px 10px; border-radius: 6px; }
 .highlight .c { color: #586e75 } /* Comment */
 .highlight .err { color: #93a1a1 } /* Error */
 .highlight .g { color: #93a1a1 } /* Generic */
-.highlight .k { color: #d7a9e5 } /* Keyword */
+.highlight .k { color: #c584d9 } /* Keyword */
 .highlight .l { color: #93a1a1 } /* Literal */
 .highlight .n { color: #93a1a1 } /* Name */
-.highlight .o { color: #e2c278 } /* Operator */
+.highlight .o { color: #cd9b64 } /* Operator */
 .highlight .x { color: #cb4b16 } /* Other */
 .highlight .p { color: #93a1a1 } /* Punctuation */
-.highlight .cm { color: #586e75 } /* Comment.Multiline */
+.highlight .cm { color: #b7bbc5 } /* Comment.Multiline */
 .highlight .cp { color: #859900 } /* Comment.Preproc */
-.highlight .c1 { color: #586e75 } /* Comment.Single */
+.highlight .c1 { color: #b7bbc5 } /* Comment.Single */
 .highlight .cs { color: #859900 } /* Comment.Special */
 .highlight .gd { color: #2aa198 } /* Generic.Deleted */
 .highlight .ge { color: #93a1a1; font-style: italic } /* Generic.Emph */
@@ -112,7 +112,7 @@
 .highlight .kn { color: #859900 } /* Keyword.Namespace */
 .highlight .kp { color: #859900 } /* Keyword.Pseudo */
 .highlight .kr { color: #c56fdf; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #dc322f } /* Keyword.Type */
+.highlight .kt { color: #db6a75 } /* Keyword.Type */
 .highlight .ld { color: #93a1a1 } /* Literal.Date */
 .highlight .m { color: #2aa198 } /* Literal.Number */
 .highlight .s { color: #2aa198 } /* Literal.String */
@@ -144,7 +144,7 @@
 .highlight .sh { color: #93a1a1 } /* Literal.String.Heredoc */
 .highlight .si { color: #2aa198 } /* Literal.String.Interpol */
 .highlight .sx { color: #2aa198 } /* Literal.String.Other */
-.highlight .sr { color: #dc322f } /* Literal.String.Regex */
+.highlight .sr { color: #db6a75 } /* Literal.String.Regex */
 .highlight .s1 { color: #2aa198 } /* Literal.String.Single */
 .highlight .ss { color: #2aa198 } /* Literal.String.Symbol */
 .highlight .bp { color: #268bd2 } /* Name.Builtin.Pseudo */
