@@ -1,0 +1,21 @@
+---
+layout:     post
+title:      "npm WARN ** requires a peer of 解决办法"
+date:       2017-12-12 11:06:00
+author:     "ZoeIce"
+header-img: "img/tag-bg.jpg"
+catalog: false
+tags:
+    - npm
+    - bug
+---
+
+npm install时提示
+```Shell
+npm WARN react-native@0.51.0 requires a peer of react@16.0.0 but none was installed.
+```
+
+解决办法：
+```Shell
+npm install npm@latest -g
+```
