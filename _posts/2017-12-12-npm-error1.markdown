@@ -10,7 +10,7 @@ tags:
     - bug
 ---
 
-npm install时提示
+控制台执行`npm install`时竟然提示
 ```Shell
 npm WARN react-native@0.51.0 requires a peer of react@16.0.0 but none was installed.
 ```
@@ -18,4 +18,20 @@ npm WARN react-native@0.51.0 requires a peer of react@16.0.0 but none was instal
 解决办法：
 ```Shell
 npm install npm@latest -g
+```
+
+提示如下就完成了
+
+```
+All packages installed (used 76ms, speed 0B/s, json 0(0B), tarball 0B)
+```
+
+
+
+再`npm install`就正常了， 如下：
+```
+✔ Installed 2 packages
+✔ Linked 0 latest versions
+✔ Run 0 scripts
+✔ All packages installed (used 25ms, speed 0B/s, json 0(0B), tarball 0B)
 ```
