@@ -11,7 +11,14 @@ tags:
 ---
 
 ## 开发环境准备
-随便起个项目名，比如：NativeAppDemo
+配置android环境
+1. 配置环境变量：
+在.bash_profile中配置, ANDROID_HOME根据你自己android sdk 的路径修改
+```
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+```
+
 
 ## 安装JavaScript依赖包
 
@@ -42,6 +49,8 @@ $ npm install --save react react-native
 在app的`build.gradle`文件中添加react-native依赖库
 ```groovy    
 android {
+    buildToolsVersion "23.0.1"
+    ...
     defaultConfig {
         ...
         ndk {
@@ -60,7 +69,7 @@ android {
 dependencies {
     ...
     compile "com.facebook.react:react-native:+" // From node_modules.
-    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:appcompat-v7:23.0.1'
 }
 ```
 在project的`build.gradle`文件中添加添加一个 maven 依赖的入口
@@ -81,10 +90,9 @@ allprojects {
 ```xml    
 <uses-permission android:name="android.permission.INTERNET" />
 ```
-#### 3.代码集成
 
 
-#### 4.添加index.js文件到项目中
+#### 3.添加index.js文件到项目中
 
 ###### (1).创建一个index.js文件
 
@@ -129,7 +137,7 @@ AppRegistry.registerComponent('MyReactNativeApp', () => HelloWorld);
 里面的名称 必须和你的工程名一致。比如MyReactNativeApp。
 
 
-## 创建Activity
+## 代码集成
 新建一个Activity，让其继承ReactActivity，并重写getMainComponentName(),返回我们在index.android.js
 中注册的HelloWorld这个组件。
 ```java
@@ -208,31 +216,15 @@ react-native bundle --platform android --dev false --entry-file index.js --bundl
 
 确认一下react native service处于运行状态，然后正常运行你的APP，点击start
 
-
-现在activity已就绪，可以运行一些JavaScript代码了。
-
-## 测试集成结果
-You have now done all the basic steps to integrate React Native with your current application. Now we will start the React Native packager to build the index.bundle package and the server running on localhost to serve it.
-
-#### 1. 运行Packager
-运行应用首先需要启动开发服务器（Packager）。你只需在项目根目录中执行以下命令即可：
-```Shell   
-$ npm start    
+运行：
 ```
-#### 2. 运行你的应用
-保持packager的窗口运行不要关闭，然后像往常一样编译运行你的Android应用(在命令行中执行./gradlew installDebug或是在Android Studio中编译运行)。
-
->如果你是使用Android Studio来编译运行，有可能会导致packager报错退出。这种情况下你需要安装watchman。但是watchman目前没有稳定的Windows版本，所以在Windows下这种崩溃情况暂时没有特别好的解决方案。
-
-编译执行一切顺利进行之后，在进入到MyReactActivity时应该就能立刻从packager中读取JavaScript代码并执行和显示
-
-## 在Android Studio中打包
-你也可以使用Android Studio来打release包！其步骤基本和原生应用一样，只是在每次编译打包之前需要先执行js文件的打包(即生成离线的jsbundle文件)。具体的js打包命令如下：
-
-```Shell   
-$ react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/com/your-company-name/app-package-name/src/main/assets/index.android.bundle --assets-dest android/com/your-company-name/app-package-name/src/main/res/
+react-native run-android
 ```
+如果报这个错误：`Android project not found. Maybe run react-native android first?`
+则运行如下命令：
+```
+react-native upgrade
+```
+在出现询问的提示下输入`y`，最后看到`Successfully upgraded this project to react-native v0.51.0`则表示更新完成
 
-注意把上述命令中的路径替换为你实际项目的路径。如果assets目录不存在，则需要提前自己创建一个。
-
-然后在Android Studio中正常生成release版本即可！
+重新输入`react-native run-android`
