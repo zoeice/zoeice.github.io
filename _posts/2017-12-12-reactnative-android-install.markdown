@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "android项目中加入ReactNative的方法"
+title:      "Android/iOS已有项目集成ReactNative"
 date:       2017-12-12 16:01:00
 author:     "ZoeIce"
 header-img: "img/home-bg-o.jpg"
