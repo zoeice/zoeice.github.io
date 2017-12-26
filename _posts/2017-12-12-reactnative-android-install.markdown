@@ -8,12 +8,13 @@ catalog: false
 tags:
     - ReactNative
     - android
+    - iOS
 ---
 
 ## Android/iOS已有项目集成ReactNative
 
 # 准备工作
-Android和iOS环境配置，需要配置Node, Watchman等。 [ 具体参考[官网文档](https://facebook.github.io/react-native/docs/getting-started.html) ]
+ReactNative环境配置。 [ 具体参考[官网文档](https://facebook.github.io/react-native/docs/getting-started.html) ]
 
 #### 1. 推荐使用 [Homebrew](http://brew.sh/) 安装 Node、Watchman
 ```
@@ -360,10 +361,9 @@ pod install
 跳转到RN页面
 ```
 - (IBAction)go2RNPage:(id)sender {
-    NSLog(@"High Score Button Pressed");
     NSURL *jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.bundle?platform=ios"];
     RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL: jsCodeLocation
-                                                        moduleName: @"RNOCDemo"
+                                                        moduleName: @"MixReactNative"
                                                  initialProperties: nil
                                                      launchOptions: nil];
     UIViewController *vc = [[UIViewController alloc] init];
