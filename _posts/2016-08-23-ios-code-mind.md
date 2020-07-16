@@ -3,7 +3,6 @@ layout:     post
 title:      "iOS中编程思想"
 subtitle:   ""
 description: 1.面向过程 以过程为中心的编程思想，分析出解决问题所需要的步骤，然后用函数把这些步骤一步一步实现，使用的时候一个一个依次调用就可以了。
-.
 date:        2016-08-23 15:37:00
 author:     zoeice
 image:      https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/post-bg-wall.jpg

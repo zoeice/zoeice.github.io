@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "监听RecyclerView的滚动状态"
-description: 因为要根据滚动状态做一些功能。自定义RecyclerView来实现下
+description: 因为要根据滚动状态做一些功能。自定义RecyclerView来实现下.
 date:        2016-08-21 14:42:00
 author:     zoeice
 image:      https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/post-bg-android-n.jpg
