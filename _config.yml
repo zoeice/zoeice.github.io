@@ -1,109 +1,103 @@
-# Site settings
-title: Zoeice Blog
-SEOTitle: ZI的博客 | Zoeice Blog
-header-img: img/home-bg.jpg
+# Site Settings
+name: Zoeice
+title: Zoeice | A blog for Zoeice's Life
+description: 记录时光
+tags:
+  - blog
+  - template
+  - jekyll
+  - theme
+  - netlify
 email: zoeice211@gmail.com
-description: "关于程序与设计、画家 | Web & Mobile Lover，Software Engineer，UX Designer。"
-keyword: "Zoeice Blog, 博客, 个人网站, 互联网, Web, JavaScript, Android, iOS, Flutter, ReactNative, 前端, 设计"
-url: "https://zoeice.com"              # your host, for absolute URL
-baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
+disqus_username: zoeice
+show_hero: true
+menu:
+  - title: Home
+    url: /
+  - title: About
+    url: /about
+  - title: Contact
+    url: /contact
+  - title: Feed
+    url: /feed.xml
 
-# Publish posts or collection documents with a future date.
-future: true
 
-# SNS settings
-RSS: false
-# weibo_username:     zoeice
-# zhihu_username:     zoeice
-# github_username:    zoeice
-# twitter_username:   zoeice
-#facebook_username:  zoeice
-#linkedin_username:  firstname-lastname-idxxxx
+# Social Media Settings
+# Remove the item if you don't need it
+github_username: zoeice
+# facebook_username: zoeice
+# twitter_username: zoeice
+# instagram_username: zoeice
+# linkedin_username: zoeice
+# medium_username: zoeice
 
+
+# Posts Settings
+show_time_bar: true
+show_modal_on_exit: false
+show_modal_on_finish_post: true
+two_columns_layout: true
+
+
+# Advanced Settings
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site
+google_analytics: "UA-XXXXXXXX-X"
+language: "en"
+categories_folder: category
+sent_message_url: "/contact/message-sent/"
 
 
 # Build settings
-# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
-highlighter: rouge
-permalink: pretty
-paginate: 10
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","README.zh.md"]
-anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
-# If you have timezone issue (e.g. #68) in China, uncomment to use this:
-#timezone: CN  
-
-
-
-# Gems
-# from PR#40, to support local preview for Jekyll 3.0
-# make sure you have this gem installed
-# `$ gem install jekyll-paginate`
-plugins: [jekyll-paginate]
-
-
-
-# Markdown settings
-# replace redcarpet to kramdown,
-# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
-# document: http://jekyllrb.com/docs/configuration/#kramdown
 markdown: kramdown
-kramdown:
-  input: GFM                            # use Github Flavored Markdown !important
-  syntax_highlighter_opts:
-    span:
-      line_numbers: false
-    block:
-      line_numbers: true
-      start_line: 1
+highlighter: rouge
+permalink: /:title/
+collections:
+  authors:
+    output: true
+paginate_path: "/page/:num/"
+show_get_theme_btn: false
+use_logo: false
 
+# Content paginator
+paginate_content:
+  enabled: true
+  debug: false
+  collections:
+    - posts
+  auto: false
+  separator: "--page-break--"
+  permalink: "/:num/"
+  seo_canonical: true
+  properties:
+    part:
+      is_generated: true
+    last:
+      is_generated: true
+    single:
+      is_generated: true
 
+# SASS
+sass:
+  style: compressed
 
-# Disqus settings
-disqus_username: zoeice
+# Plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-paginate-content
 
-# Netease settings
-netease_comment: false
-
-
-
-# Analytics settings
-# Baidu Analytics 
-# ba_track_id: [your track id]
-
-# Google Analytics
-ga_track_id: 'G-PL8F64VTTB'            # Format: UA-xxxxxx-xx
-ga_domain: zoeice.com
-
-
-
-# Sidebar settings
-sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "Make a code quietly<br>下一段旅程"
-sidebar-avatar: /img/avatar-zoeice.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
-
-
-
-# Featured Tags
-featured-tags: true                     # whether or not using Feature-Tags
-featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
-
-
-
-# Progressive Web Apps
-chrome-tab-theme-color: "#000000"
-service-worker: true
-
-
-
-# MathJax rendering for layout:page (e.g. post preview)
-page-mathjax: false
-
-
-
-# Friends
-friends: [
-    # {
-    #     title: "Su",
-    #     href: "http://su.gallery/"
-    # }
+# Exclude my node related stuff
+exclude: [
+  'package.json',
+  'package-lock.json',
+  'src',
+  'node_modules',
+  'initpost.sh',
+  'Gemfile',
+  'Gemfile.lock',
+  'gulpfile.js',
+  'README.md'
 ]
+
+# Theme
+version: v3.1.0
