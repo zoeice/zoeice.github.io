@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "用Retrofit2上传文件"
-subtitle:   "Alamofire+ObjectMapper+RealmSwift"
+subtitle:   "Retrofit2"
 description: 使用Retrofit2, 你需要将OkHttp的`RequestBody`或者`MultipartBody.Part`中的一个或多个作为请求body.
 date:        2016-08-24 09:42:00
 author:     zoeice
