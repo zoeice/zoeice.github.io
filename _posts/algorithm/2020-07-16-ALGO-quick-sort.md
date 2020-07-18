@@ -1,8 +1,8 @@
 ---
 layout:     post
 title:      快速排序
-description: 需要环境支持, Ruby，Mac自带，如果没有请安装(这里推荐用RVM安装Ruby,这样就不需要命令上加sudo)  
-date:       2016-08-14 11:06:00
+description: 快速排序（英语：Quicksort），又称分区交换排序，简称快排，一种排序算法，最早由东尼·霍尔提出。 
+date:       2016-08-24 11:06:00
 author:     zoeice
 image: https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/post-bg-quick-sort.jpeg
 optimized_image: https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/post-bg-quick-sort.jpeg?x-oss-process=image/resize,w_380
