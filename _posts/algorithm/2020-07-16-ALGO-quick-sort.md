@@ -66,7 +66,7 @@ function quickSort(arr: Array<number>, left: number, right: number): Array<numbe
 ```
 
 然后随机生成一个数组用来测试排序算法：
-```
+```js
 function generateRandomArray(size: number): Array<number> {
     if(size > 10000) size = 10000
     let array = []
@@ -81,6 +81,6 @@ let array = generateRandomArray(100)
 console.log('test', quickSort(array, 0, array.length))
 ```
 运行结果：
-```
+```js
 [0, 0, 2, 3, 3, 3, 3, 7, 12, 12, 12, 12, 13, 15, 17, 18, 18, 18, 19, 19, 20, 20, 22, 23, 23, 23, 23, 25, 26, 26, 27, 28, 29, 29, 31, 32, 34, 34, 35, 36, 36, 37, 39, 44, 44, 45, 46, 46, 46, 47, 49, 52, 53, 53, 54, 54, 56, 58, 60, 60, 61, 61, 61, 61, 62, 63, 63, 64, 64, 65, 65, 65, 67, 68, 71, 72, 72, 74, 76, 78, 78, 79, 80, 80, 80, 83, 84, 84, 84, 85, 85, 86, 87, 93, 93, 94, 94, 94, 95, 98]
 ```
