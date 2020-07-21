@@ -385,6 +385,13 @@
   }
   /* 侧边栏目录 */
   .side-catalog {
+    color: lighten(black, 75%);
+    font-size: 14px;
+    display: block;
+    overflow: auto;
+    height: 100%;
+    padding-bottom: 40px;
+    width: 195px;
     &.fixed {
       position: fixed;
       top: -21px;
@@ -397,17 +404,15 @@
         display: none;
       }
     }
-    .catalog-toggle::before {
-      content: "−";
-      position: relative;
-      margin-right: 5px;
-      bottom: 1px;
+    .catalog-toggle {
+      text-decoration: none;
+      &::before {
+        content: "−";
+        position: relative;
+        margin-right: 5px;
+        bottom: 1px;
+      }
     }
-    display: block;
-    overflow: auto;
-    height: 100%;
-    padding-bottom: 40px;
-    width: 195px;
     .catalog-body {
       position: relative;
       list-style: none;
