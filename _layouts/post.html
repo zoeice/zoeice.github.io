@@ -135,11 +135,14 @@
                 document.getElementsByClassName(selector).innerHTML = ''
                 // appending
                 Array.prototype.forEach.call(a, function(el, i){
+                    if(el.className === 'post-title') {
+                        return
+                    }
                     c = document.createElement("a")
                     c.href = "#" + el.id
                     c.rel = "nofollow"
                     n = el.tagName.toLowerCase() 
-                    c.innerText = ((n === 'h1' || n === 'h2')? '• ': '- ') + el.textContent 
+                    c.innerText = ((n === 'h1' || n === 'h2')? '': '• ') + el.textContent
                     l = document.createElement("li")
                     l.className = n + '_nav'
                     l.appendChild(c)
