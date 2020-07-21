@@ -60,7 +60,7 @@
                     <div class="side-catalog">
                         <hr class="hidden-sm hidden-xs">
                         <h5>
-                            <a class="catalog-toggle" href="#">CATALOG</a>
+                            <a class="catalog-toggle" href="#">目录</a>
                         </h5>
                         <ul class="catalog-body"></ul>
                     </div>
@@ -129,19 +129,17 @@
         <script type="text/javascript">
             function generateCatalog(selector) {
                 // init
-                var P = document.getElementsByClassName('post-content'), a, n, t, l, i, c;
+                var P = document.getElementsByClassName('post-content'), a, n, l, c;
                 a = P[0].querySelectorAll('h1,h2,h3,h4,h5,h6');
                 // clean
                 document.getElementsByClassName(selector).innerHTML = ''
                 // appending
                 Array.prototype.forEach.call(a, function(el, i){
-                    n = el.tagName.toLowerCase()
-                    i = "#" + el.id
-                    t = el.textContent 
                     c = document.createElement("a")
-                    c.href = i
+                    c.href = "#" + el.id
                     c.rel = "nofollow"
-                    c.innerText = t
+                    n = el.tagName.toLowerCase() 
+                    c.innerText = ((n === 'h1' || n === 'h2')? '• ': '- ') + el.textContent 
                     l = document.createElement("li")
                     l.className = n + '_nav'
                     l.appendChild(c)
@@ -151,12 +149,6 @@
             }
 
             generateCatalog("catalog-body");
-
-            // toggle side catalog
-            document.getElementsByClassName("catalog-toggle")[0].click((function (e) {
-                e.preventDefault();
-                document.getElementsByClassName('side-catalog')[0].toggleClass("fold")
-            }))
         </script>
         {% endunless %}
         <script type="application/ld+json">
