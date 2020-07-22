@@ -8,8 +8,6 @@ tags:
   - jekyll
   - theme
   - netlify
-email: zoeice211@gmail.com
-disqus_username: zoeice
 show_hero: true
 menu:
   - title: Home
@@ -20,16 +18,18 @@ menu:
     url: /contact
   - title: Feed
     url: /feed.xml
+email: zoeice211@gmail.com
+disqus_username: zoeice
 
 
 # Social Media Settings
 # Remove the item if you don't need it
-github_username: zoeice
-# facebook_username: zoeice
-# twitter_username: zoeice
-# instagram_username: zoeice
-# linkedin_username: zoeice
-# medium_username: zoeice
+github_username: github_username
+facebook_username: facebook_username
+twitter_username: twitter_username
+instagram_username: instagram_username
+linkedin_username: linkedin_username
+medium_username: medium_username
 
 
 # Posts Settings
