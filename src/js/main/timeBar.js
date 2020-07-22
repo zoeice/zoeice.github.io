@@ -16,8 +16,6 @@
 
         document.addEventListener('scroll', function () {
             var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-            console.log('scrollTop >> ', scrollTop)
             
             if (scrollTop > lastScrollTop && shouldShow) {
                 timeBar.style.bottom = '0%';
