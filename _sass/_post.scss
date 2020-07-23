@@ -784,3 +784,35 @@
     }
   }
 }
+
+.bottom-rect {
+  position: relative;
+
+  &.two-columns {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: rem(40px);
+  
+    @include media(">=sm") {
+      max-width: rem(1100px);
+      flex-direction: row;
+      margin: 0 auto;
+      padding: rem(40px) 0;
+    }
+  
+    .bottom-content {
+      @include media(">=sm") {
+        flex-basis: 70%;
+        padding: 0 rem(30px) 0 rem(10px);
+      }
+    }
+  }
+  .right-content {
+    padding: 0 rem(20px);
+  
+    @include media(">=sm") {
+      flex-basis: 30%;
+      padding: 0 rem(10px);
+    }
+  }
+}
