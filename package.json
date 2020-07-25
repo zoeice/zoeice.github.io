@@ -21,6 +21,7 @@
     "url": "https://github.com/zoeice/zoeice.github.io/issues"
   },
   "scripts": {
+    "build": "gulp build",
     "start": "bundle exec jekyll serve",
     "dev": "grunt watch & npm run start",
     "boil": "git push boilerplate boilerplate:master",
