@@ -82,6 +82,9 @@ package com.onetree.springdemo.model;
 public class PersonModel {
     public String name;
 
+    public PersonModel() {
+    }
+
     public PersonModel(String name) {
         this.name = name;
     }
@@ -141,7 +144,7 @@ Prefences -> Plugins -> Marketplace 里搜索 **lombok**插件，如下图
 ![](https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/content/post-spring-Slf4j.jpg)
 完成安装后重启IDEA
 
-写个单例测试上面的`person/findByName`接口：
+写个单例测试上面的`person/findByName`等接口：
 ```java
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -178,6 +181,30 @@ class SpringdemoApplicationTests {
 		response.setCharacterEncoding("UTF-8");
 		String content = response.getContentAsString();
 		log.info("findByName Result: {}", content);
+	}
+
+	@Test
+	void add() throws Exception {
+		MvcResult mvcResult = mock.perform(
+				MockMvcRequestBuilders.post("/person/add")
+						.contentType(MediaType.APPLICATION_JSON)
+						.characterEncoding("UTF-8")
+						.content(asJsonString(new PersonModel("Lily")))
+		)
+				.andExpect(status().isOk())
+				.andReturn();
+		MockHttpServletResponse response = mvcResult.getResponse();
+		response.setCharacterEncoding("UTF-8");
+		String content = response.getContentAsString();
+		log.info("add Result: {}", content);
+	}
+
+	public static String asJsonString(final Object obj) {
+		try {
+			return new ObjectMapper().writeValueAsString(obj);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
 ```
