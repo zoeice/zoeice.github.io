@@ -37,7 +37,7 @@ mongod
 
 ## 写Spring boot + MongoDB的Demo
 
-#### 1. 创建项目
+### 1. 创建项目
 创建一个Spring boot, 配置Gradle和Kotlin, 来看看怎么从MongoDB存储和检索数据。
 创建过程参考博文: [SpringBoot + Kotlin + Gradle学习记录](/spring-boot-learn/)
 
@@ -49,7 +49,7 @@ dependencies {
 }
 ```
 
-#### 2.创建模型类文档
+### 2.创建模型类文档
 创建Customer的模型类文档:
 ```kotlin
 package com.onetree.springbootdemo.model
@@ -62,12 +62,16 @@ class Customer(
         @Id var id: String,
         var firstName: String? = null,
         var lastName: String? = null
-)
+){
+    override fun toString(): String{
+        return "{id= ${id}, firstName = ${firstName}, lastName = ${lastName}}"
+    }
+}
 ```
 >– @Document: 标识要保留到MongoDB的域对象
 – @Id: 划分标识符
 
-#### 3.实现自定义的MongoRepository
+### 3.实现自定义的MongoRepository
 创建CustomerRepository文件
 ```kotlin
 package com.onetree.springbootdemo.repo
@@ -77,7 +81,7 @@ import org.springframework.data.mongodb.repository.MongoRepository
 
 interface CustomerRepository : MongoRepository<Customer, String> {
 
-    fun findByFirstName(firstName: String): Customer?
+    fun findByFirstName(firstName: String): List<Customer>
     fun findByLastName(lastName: String): List<Customer>
 
 }
@@ -88,7 +92,7 @@ spring.data.mongodb.database=jsa_mongodb
 spring.data.mongodb.port=27017
 ```
 
-#### 4.实现应用端
+### 4.实现应用端
 在 SpringbootdemoApplication 里加一些输出
 ```kotlin
 package com.onetree.springbootdemo
@@ -105,31 +109,49 @@ class SpringbootdemoApplication {
 
 	@Bean
 	fun doProcess(customerRepo: CustomerRepository) = CommandLineRunner {
+		// clear
 		customerRepo.deleteAll()
 
-		// save a couple of customers
-		customerRepo.save(Customer("a", "Alice", "Smith"))
-		customerRepo.save(Customer("b", "Bob", "Smith"))
+		/**
+		 * Save Entities
+		 */
+		println("Save customers! >>>>>>>>")
+		// save an Entity
+		val peter = Customer("001", "Peter", "Smith")
+		customerRepo.save(peter)
 
-		// fetch all customers
-		println("Customers found with findAll():")
-		println("-------------------------------")
-		for (customer in customerRepo.findAll()) {
-			println(customer)
-		}
-		println()
+		// save a List Entity
+		val custs = listOf(Customer("002", "Mary", "Smith"), Customer("003", "Lauren", "Smith"), Customer("004", "Peter", "Smith"))
+		customerRepo.saveAll(custs)
 
-		// fetch an individual customer
-		println("Customer found with findByFirstName('Alice'):")
-		println("--------------------------------")
-		val person = customerRepo.findByFirstName("Alice")
-		System.out.println("findByFirstName >> $person")
+		/**
+		 * Find Entities
+		 */
+		println("Find customers has name is 'Peter'! >>>>>>>>")
+		val peters = customerRepo.findByFirstName("Peter")
+		// -> Show result
+		peters.forEach{println(it)}
 
-		println("Customers found with findByLastName('Smith'):")
-		println("--------------------------------")
-		for (customer in customerRepo.findByLastName("Smith")) {
-			println(customer)
-		}
+		/**
+		 * Update an Entity
+		 */
+		println("Rename a customer which has name is 'Peter' to 'Jack'! >>>>>>>>")
+		val jack = peters.get(0)
+		jack.firstName = "Jack"
+		customerRepo.save(jack)
+
+		/**
+		 * Delete an Entity
+		 */
+		println("Delete the remain Peter customer! >>>>>>>>")
+		customerRepo.delete(peters.get(1))
+
+		/**
+		 * Find All customer
+		 */
+		println("Show All Customers! >>>>>>>>")
+		val customers = customerRepo.findAll()
+		customers.forEach{println(it)}
 	}
 }
 
@@ -138,7 +160,7 @@ fun main(args: Array<String>) {
 }
 ```
 
-#### 5.部署
+### 5.部署
 通过命令行启动MongoDB服务
 ```shell
 mongod
@@ -146,16 +168,14 @@ mongod
 
 然后就能看到运行的日志了：
 ```shell
-Customers found with findAll():
--------------------------------
-com.onetree.springbootdemo.model.Customer@44faa4f2
-com.onetree.springbootdemo.model.Customer@6793f752
-
-Customer found with findByFirstName('Alice'):
---------------------------------
-aa>>com.onetree.springbootdemo.model.Customer@68c34db2
-Customers found with findByLastName('Smith'):
---------------------------------
-com.onetree.springbootdemo.model.Customer@423f8a73
-com.onetree.springbootdemo.model.Customer@1aedf08d
+Save customers! >>>>>>>>
+Find customers has name is 'Peter'! >>>>>>>>
+{id= 001, firstName = Peter, lastName = Smith}
+{id= 004, firstName = Peter, lastName = Smith}
+Rename a customer which has name is 'Peter' to 'Jack'! >>>>>>>>
+Delete the remain Peter customer! >>>>>>>>
+Show All Customers! >>>>>>>>
+{id= 001, firstName = Jack, lastName = Smith}
+{id= 002, firstName = Mary, lastName = Smith}
+{id= 003, firstName = Lauren, lastName = Smith}
 ```
