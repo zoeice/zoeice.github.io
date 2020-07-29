@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Spring Boot+Kotlin+Gradle学习记录
+title:      SpringBoot + Kotlin + Gradle学习记录
 subtitle:   简化的Spring配置
 description: 通过Spring Boot可以轻松地创建和运行独立的，可以商用的应用程序
 date:        2020-07-24 11:56:00
