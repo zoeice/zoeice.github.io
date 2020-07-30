@@ -14,7 +14,7 @@ tags:
     - MongoDB
 ---
 
-使用Spring data REST 创建和检索存储在MongoDB NoSQL数据库里的Person对象。
+使用Spring data REST 创建和检索存储在MongoDB NoSQL数据库里的Customer对象。
 
 ## 安装MongoDB
 由于现在MongoDB不在官方提供列表里，在装有HomeBrew的Mac OS上添加仓库，执行

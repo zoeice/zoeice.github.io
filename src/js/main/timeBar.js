@@ -68,16 +68,6 @@
             }
 
             lastScrollTop = scrollTop;
-
-            //adjust the appearance of side-catalog
-            var catalog = document.getElementsByClassName('side-catalog')[0];
-            var bannerHeight  = document.getElementsByClassName('see-content')[0].offsetHeight;  
-            catalog.style.display = '';    
-            if (scrollTop > (bannerHeight + 195)) {
-                catalog.classList.add('fixed');   
-            } else {
-                catalog.classList.remove('fixed');     
-            }
         });
     }
 

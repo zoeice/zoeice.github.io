@@ -62,7 +62,10 @@
                         <h5>
                             <a class="catalog-toggle">目录</a>
                         </h5>
-                        <ul class="catalog-body"></ul>
+                        <div>
+                            <ul class="catalog-body"></ul>
+                        </div>
+                        
                     </div>
                     {% endunless %}
                 </aside>
@@ -132,31 +135,112 @@
         {% endif %}
         {% unless page.no-catalog %}
         <script type="text/javascript">
+            var navArray = []
+            var curNavIndex = -1
+
             function generateCatalog(selector) {
                 // init
                 var P = document.getElementsByClassName('post-content'), a, n, l, c;
                 a = P[0].querySelectorAll('h1,h2,h3,h4,h5,h6');
                 // clean
                 document.getElementsByClassName(selector).innerHTML = ''
+                navArray = []
                 // appending
                 Array.prototype.forEach.call(a, function(el, i){
                     if(el.className === 'post-title') {
                         return
                     }
+                    var position = i - 1
                     c = document.createElement("a")
                     c.href = "#" + el.id
-                    c.rel = "nofollow"
+                    c.className = 'text' + (curNavIndex === position ? ' selected' : '')
+                    c.onclick = (value) => {
+                        if(curNavIndex !== position) {
+                            curNavIndex = position
+                            for(let k = 0; k < navArray.length; k++) {
+                                document.getElementById(navArray[k].elementId).className = 'text'
+                            }
+                            document.getElementById(navArray[curNavIndex].elementId).className = 'text selected'
+                        }
+                    }
+                    c.id = "catalog_id_" + position
                     n = el.tagName.toLowerCase() 
                     c.innerText = ((n === 'h1' || n === 'h2')? '': '• ') + el.textContent
                     l = document.createElement("li")
                     l.className = n + '_nav'
                     l.appendChild(c)
                     document.getElementsByClassName(selector)[0].appendChild(l)
+
+                    navArray.push({
+                        elementId: c.id,
+                        top: getElementToPageTop(el)
+                    })
                 })
                 return true
             }
 
+            function getElementToPageTop(el) {
+                if(el == null){
+                    return
+                }
+                let _this = this;
+                if(el.parentElement) {
+                    return _this.getElementToPageTop(el.parentElement) + el.offsetTop
+                }
+                return el.offsetTop
+            }
+
+            //number :距离   time：时间
+            function ScrollTop(number, time){
+                let _this = this;
+                if (!time) {
+                    document.body.scrollTop = document.documentElement.scrollTop = number;
+                    return number;
+                }
+                const spacingTime = 20; // 设置循环的间隔时间  值越小消耗性能越高
+                let spacingInex = time / spacingTime; // 计算循环的次数
+                let nowTop = document.body.scrollTop + document.documentElement.scrollTop; // 获取当前滚动条位置
+                let everTop = (number - nowTop) / spacingInex; // 计算每次滑动的距离
+                let scrollTimer = setInterval(() => {
+                    if (spacingInex > 0) {
+                        spacingInex--;
+                        _this.ScrollTop(nowTop += everTop);
+                    } else {
+                        clearInterval(scrollTimer); // 清除计时器
+                    }
+                }, spacingTime);
+            }
+
             generateCatalog("catalog-body");
+
+            console.log('navArray >>> ', curNavIndex)
+            document.addEventListener('scroll', function () {
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                 //adjust the appearance of side-catalog
+                var catalog = document.getElementsByClassName('side-catalog')[0];
+                var bannerHeight  = document.getElementsByClassName('see-content')[0].offsetHeight;  
+                catalog.style.display = '';    
+                if (scrollTop > (bannerHeight + 195)) {
+                    catalog.classList.add('fixed');   
+                } else {
+                    catalog.classList.remove('fixed');     
+                }
+
+                for(let i = 0; i < navArray.length - 1; i++) {
+                    if(scrollTop > navArray[i].top && scrollTop < navArray[i + 1].top) {
+                        if(curNavIndex !== i) {
+                            curNavIndex = i
+                            console.log('scroll >>> ', curNavIndex)
+                            for(let k = 0; k < navArray.length; k++) {
+                                document.getElementById(navArray[k].elementId).className = 'text'
+                            }
+                            document.getElementById(navArray[curNavIndex].elementId).className = 'text selected'
+                        }
+                        break
+                    }
+                }
+            })
         </script>
         {% endunless %}
         <script type="application/ld+json">
