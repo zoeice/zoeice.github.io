@@ -213,7 +213,6 @@
 
             generateCatalog("catalog-body");
 
-            console.log('navArray >>> ', curNavIndex)
             document.addEventListener('scroll', function () {
                 var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -227,17 +226,19 @@
                     catalog.classList.remove('fixed');     
                 }
 
-                for(let i = 0; i < navArray.length - 1; i++) {
-                    if(scrollTop > navArray[i].top && scrollTop < navArray[i + 1].top) {
-                        if(curNavIndex !== i) {
-                            curNavIndex = i
-                            console.log('scroll >>> ', curNavIndex)
-                            for(let k = 0; k < navArray.length; k++) {
-                                document.getElementById(navArray[k].elementId).className = 'text'
+                for(let i = 0; i < navArray.length; i++) {
+                    if(scrollTop > navArray[i].top - 195) {
+                        if(i === navArray.length - 1 || scrollTop < navArray[i + 1].top - 195) {
+                            if(curNavIndex !== i) {
+                                curNavIndex = i
+                                console.log('scroll Tag Index >>> ', curNavIndex)
+                                for(let k = 0; k < navArray.length; k++) {
+                                    document.getElementById(navArray[k].elementId).className = 'text'
+                                }
+                                document.getElementById(navArray[curNavIndex].elementId).className = 'text selected'
                             }
-                            document.getElementById(navArray[curNavIndex].elementId).className = 'text selected'
+                            break
                         }
-                        break
                     }
                 }
             })
