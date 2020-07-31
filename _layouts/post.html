@@ -218,7 +218,8 @@
 
                  //adjust the appearance of side-catalog
                 var catalog = document.getElementsByClassName('side-catalog')[0];
-                var bannerHeight  = document.getElementsByClassName('see-content')[0].offsetHeight;  
+                var banner = document.getElementsByClassName('see-content')[0]
+                var bannerHeight  = banner ? banner.offsetHeight: 800;  
                 catalog.style.display = '';    
                 if (scrollTop > (bannerHeight + 195)) {
                     catalog.classList.add('fixed');   
