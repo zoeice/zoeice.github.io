@@ -143,17 +143,17 @@ export default Example
 
 这个例子我们发现两个问题：
 
-问题1：
-每次state变化一次，都会连续执行两次`do render >>`
-这是因为启动了 [**严格模式**](https://zh-hans.reactjs.org/docs/strict-mode.html)
+**问题1**：<br>
+每次state变化一次，都会连续执行两次`do render >>`<br>
+这是因为启动了 [**严格模式**](https://zh-hans.reactjs.org/docs/strict-mode.html)<br>
 在严格模式下，React会执行两次render以检查额外的副作用。
 
 >严格模式(StrictMode)仅在开发模式下运行；它们不会影响生产构建。
 
-问题2：
-第一次点Add后，num从0变到1， 日志出现了 2次`do render >>`
-第二次点Add后，num还是1没变化，日志还是出现了 2次`do render >>`
-第三次点Add后，num还是1没变化，就没有日志了 
+**问题2**：<br>
+第一次点Add后，num从0变到1， 日志出现了 2次`do render >>`<br>
+第二次点Add后，num还是1没变化，日志还是出现了 2次`do render >>`<br>
+第三次点Add后，num还是1没变化，就没有日志了 <br>
 问题持续关注：[useState not bailing out when state does not change](https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Ffacebook%2Freact%2Fissues%2F14994)
 
 ### 3.state的同步和“异步”
@@ -218,7 +218,7 @@ async update num2
 
 只在合成事件和钩子函数中是“异步”的，在原生事件和 setTimeout 中都是同步的。
 
-### 4.立刻怎么拿到useState更新后的值
+### 4.如何拿到useState更新后的值
 原生的state可以用过setState(partialState, callback)里的callback及时拿到更新后的值，但是在useState里怎么拿到呢？
 可以使用useEffect模拟
 
@@ -282,4 +282,4 @@ function Example() {
 
 export default Example
 ```
-这样看起来好多了，可以把`useStateWithCallback`抽离到独立文件，整个项目都可以调用。
+这样看起来好多了，可以把 `useStateWithCallback` 抽离到独立文件，整个项目都可以调用。

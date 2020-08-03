@@ -95,15 +95,14 @@ Hook的出现很好的解决了这些问题， 而且远不止这些。
 ## 规则
 Hook 是向下兼容的。 Hook的本质就是JavaScript函数， 使用它要遵循两条规则：
 
-### 一、只在最顶层使用Hook
+### 1.只在最顶层使用Hook
 不要在循环，条件或嵌套函数中调用 Hook， 确保总是在你的 React 函数的最顶层调用他们。
 >遵守这条规则，你就能确保 Hook 在每一次渲染中都按照同样的顺序被调用。这让 React 能够在多次的 useState 和 useEffect 调用之间保持 hook 状态的正确。
 
-### 二、只在React函数中调用Hook
+### 2.只在React函数中调用Hook
 不要在普通的 JavaScript 函数中调用 Hook。
 
-## 其他注意点
-### 闭包陷阱
+## 闭包陷阱
 当我们更新状态的时候，React会重新渲染组件。每一次渲染都能拿到独立的count 状态，这个状态值是函数中的一个常量。每一次调用引起的渲染中，它包含的count值独立于其他渲染
 ```javascript
 import React, { useState } from 'react';
@@ -129,14 +128,15 @@ function Example() {
 
 export default Example;
 ```
-运行一下，先点击1次「alertcount」, 再多点3次「Click me」, 发现 页面显示的是`You clicked 3 times`, 但是alert里显示的是0，和我们预想的不一样。
+运行一下，先点击1次「alertcount」, 再多点3次「Click me」, 发现 页面显示的是`You clicked 3 times`, 但是alert里显示的是0，和我们预想的不一样。<br>
 Hook都有闭包陷阱问题。
 
-原因是：每一次 render 都会生成一个闭包，每个闭包都有自己的 state 和 props。
+>原因是：<br>每一次 render 都会生成一个闭包，每个闭包都有自己的 state 和 props。
 所以在异步函数中访问hooks的state值拿到的是当前的闭包值，并不是最新的state值。
 
-#### 解决闭包陷阱的办法：
-1. 添加count依赖, 缺点是会重复生成和销毁定时器，影响性能
+### 解决闭包陷阱的办法：
+#### 1.添加count依赖, 缺点是会重复生成和销毁定时器，影响性能
+
 ```javascript
 useEffect(() => {
     ...
@@ -144,13 +144,15 @@ useEffect(() => {
   }, [count]);
 ```
 
-2. setCount里换成箭头函数
+#### 2.setCount里换成箭头函数
+
 ```javascript
 // set函数可以为一个函数(类似于setState) 参数为上一次的state值
 setCount(count => count + 1);
 ```
 
-3. 使用useReducer
+#### 3.使用useReducer
+
 ```javascript
 const initialState = {count: 0};
 
@@ -174,10 +176,19 @@ function Counter() {
 }
 ```
 
-4. 使用useRef
+#### 4.使用useRef
 初始化的 useRef 执行之后，返回的都是同一个对象。比如：
 ```javascript
 ref = useRef()
 ```
 
 组件每一次渲染的过程中，返回的都是同一个对象，每次组件更新所生成的ref指向的都是同一片内存空间，所以每次都能拿到最新的值。
+
+## 其他库对Hook的支持
+React Redux 从 v7.1.0 开始支持 Hook API 并暴露了 useDispatch 和 useSelector 等 hook。<br>
+React Router 从 v5.1 开始支持 hook。<br>
+其它第三库也将即将支持 hook。
+
+最新版的 Flow 和 TypeScript React 定义已经包含了对 React Hook 的支持。
+
+
