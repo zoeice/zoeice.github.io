@@ -1,14 +1,14 @@
 ---
 layout:     post
-title:      React Hook 学习
-subtitle:   
-description: 
+title:      React Hook 学习（一）
+subtitle:   useState的使用与注意点
+description: useState的使用与注意点
 date:        2020-07-24 11:56:00
 author:     zoeice
-image:      https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/post-bg-spring.jpg
-optimized_image: https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/post-bg-spring.jpg?x-oss-process=image/resize,w_380
+image:      https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/post-bg-react.jpg
+optimized_image: https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/post-bg-react.jpg?x-oss-process=image/resize,w_380
 catalog:    true
-category:   server
+category:   React
 tags:
     - React
     - Hook
@@ -146,6 +146,8 @@ export default Example
 问题1：
 每次state变化一次，都会连续执行两次`do render >>`
 这是因为启动了 [**严格模式**](https://zh-hans.reactjs.org/docs/strict-mode.html)
+在严格模式下，React会执行两次render以检查额外的副作用。
+
 >严格模式(StrictMode)仅在开发模式下运行；它们不会影响生产构建。
 
 问题2：
