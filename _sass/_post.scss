@@ -390,7 +390,6 @@
     overflow: auto;
     height: 100%;
     padding-bottom: 40px;
-    width: 195px;
 
     @include media(">=sm") {
        display: block;
@@ -416,7 +415,6 @@
         position: relative;
         list-style: none;
         .text {
-          max-width: 180px;
           display: inline-block;
           vertical-align: middle;
           height: 30px;
@@ -436,12 +434,12 @@
       .h1_nav 
       .h2_nav {
         margin-left: 0;
-        font-size: rem(16px);
+        font-size: rem(13px);
         font-weight: bold;
       }
       .h3_nav {
         margin-left: 16px;
-        font-size: rem(14px);
+        font-size: rem(13px);
         font-weight: bold;
       }
       .h4_nav {

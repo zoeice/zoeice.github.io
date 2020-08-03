@@ -165,7 +165,7 @@
                     }
                     c.id = "catalog_id_" + position
                     n = el.tagName.toLowerCase() 
-                    c.innerText = ((n === 'h1' || n === 'h2')? '': '• ') + el.textContent
+                    c.innerText = el.textContent
                     l = document.createElement("li")
                     l.className = n + '_nav'
                     l.appendChild(c)
