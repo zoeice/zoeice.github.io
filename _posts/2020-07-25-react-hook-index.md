@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      React Hook 学习（索引）
+title:      React Hook学习(索引)
 subtitle:   Hook是什么？有哪些？
 description: Hook是React 16.8的新特性，它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
 date:        2020-07-24 11:56:00
@@ -18,8 +18,8 @@ tags:
 Hook是React 16.8的新特性，它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。
 
 基础的Hook：
-1. useState
-2. useEffect
+1. [useState](/react-hook-useState/)
+2. [useEffect](/react-hook-useEffect/)
 3. useContext
 
 额外的Hook：
