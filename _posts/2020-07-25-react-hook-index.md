@@ -20,7 +20,7 @@ Hook是React 16.8的新特性，它可以让你在不编写 class 的情况下�
 基础的Hook：
 1. [useState](/react-hook-useState/)
 2. [useEffect](/react-hook-useEffect/)
-3. useContext
+3. [useContext](/react-hook-useContext/)
 
 额外的Hook：
 1. useReducer

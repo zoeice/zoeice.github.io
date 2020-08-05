@@ -167,7 +167,7 @@ export default FriendStatus;
 
 这样就可以把添加和移除订阅的逻辑放在一起了。
 
->React 会在组件卸载的时候执行清除操作
+>为了防止内存泄漏，React 会在组件卸载的时候执行清除操作
 
 ## 其它特性
 接下来深入了解 useEffect 的某些特性。
