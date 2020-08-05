@@ -32,7 +32,7 @@ class Example extends React.Component {
         <div>
             <p>You clicked {this.state.count} times</p>
             <button onClick={() => this.setState({ count: this.state.count + 1 })}>
-                Click me
+                Add
             </button>
         </div>
     );
@@ -51,7 +51,7 @@ function Example() {
         <div>
             <p>You clicked {count} times</p>
             <button onClick={() => setCount(count + 1)}>
-                Click me
+                Add
             </button>
         </div>
 	);

@@ -23,7 +23,9 @@ Hook是React 16.8的新特性，它可以让你在不编写 class 的情况下�
 3. [useContext](/react-hook-useContext/)
 
 额外的Hook：
-1. useReducer
+>有些是上面基础 Hook 的变体，有些则仅在特殊情况下会用到。
+
+1. [useReducer](/react-hook-useReducer/)
 2. useCallback
 3. useMemo
 4. useRef
