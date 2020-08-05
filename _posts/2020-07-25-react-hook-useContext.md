@@ -95,7 +95,7 @@ export default function Parent(props = {}) {
 
 然后是创建子组件 child.js:
 ```javascript
-import React, { useContext, useEffect, memo } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { MyContext } from './context-manager';
 
@@ -104,10 +104,11 @@ export default function Child(props = {}){
 
     useEffect(() => {
         fetchData().then((res) => {
-            console.log(`get data >> ${res}`);
+            console.log(`FETCH DATA: ${res}`);
         })
     }, []);
 
+    console.log('re-render')
     return (
         <div>
             <p>count is : {props.count}</p>
@@ -122,3 +123,137 @@ export default function Child(props = {}){
 
 运行发现，在子组件中点击按钮，直接调用 Context 透传过来的方法，可以修改父组件中的 state, 修改后，子组件也会重新渲染。
 这种方式避免了多级 props 层层传递的问题。
+
+但是因为 调用了 useContext 的组件总会在 context 值变化时重新渲染，如果我们的 Context 会经常变化，那对子组件来说会多次渲染。 通过memo() 可以很好的管理子组件的性能问题。
+
+### 使用memo()优化性能
+使用 memo 优化子组件渲染， 我们来修改下child.js:
+```javascript
+import React, { useContext, useEffect, memo } from 'react';
+
+import { MyContext } from './context-manager';
+
+export default memo((props = {}) => {
+    const { setCount, fetchData } = useContext(MyContext);
+
+    useEffect(() => {
+        fetchData().then((res) => {
+            console.log(`FETCH DATA: ${res}`);
+        })
+    }, []);
+
+    console.log('re-render')
+    return (
+        <div>
+            <p>count is : {props.count}</p>
+            <hr />
+            <div>
+                <button onClick={() => { setCount(props.count + 1) }}>Add</button>
+            </div>
+        </div>
+    );
+});
+```
+
+### 精简Context.Provider
+我们发现父类里 ` <MyContext.Provider value={{ setCount, fetchData }} />`里操作state的方法都放在了 Context.Provider.value 属性中传递，会造成整个 Context Provider 越来越臃肿。
+
+我们可以通过 useReducer 包装，并且通过 dispatch 触发的，因此修改一下父组件parent.js：
+```javascript
+import React, { useReducer } from 'react';
+import Child from './child';
+import { MyContext } from './context-manager';
+
+const initState = { count: 0 };
+
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'add': return Object.assign({}, state, { count: state.count + 1 });
+        default: return state;
+    }
+}
+
+function fetchData() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(1);
+        })
+    });
+}
+
+export default function Parent(props = {}) {
+    const [state, dispatch] = useReducer(reducer, initState);
+    const { count } = state;
+
+    return (
+        <MyContext.Provider value={{ state, dispatch, fetchData }}>
+            <button onClick={() => { dispatch({ type: 'add' })}}>parent Add</button>
+            <Child count={count} />
+        </MyContext.Provider>
+    );
+}
+```
+
+然后是子组件：
+```javascript
+import React, { useContext, useEffect } from 'react';
+
+import { MyContext } from './context-manager';
+
+export default function Child(props = {}){
+    const { state, dispatch, fetchData } = useContext(MyContext);
+
+    useEffect(() => {
+        fetchData().then((res) => {
+            console.log(`FETCH DATA: ${res}`);
+        })
+    }, []);
+
+    console.log('re-render')
+    return (
+        <div>
+            <p>count is : {state.count}</p>
+            <hr />
+            <div>
+                <button onClick={() => { dispatch({ type: 'add' })}}>child Add</button>
+            </div>
+        </div>
+    );
+};
+```
+
+这样父子组件都可以控制父组件Parent里的state了。
+我们发现子组件没有React.memo()了。这是因为 React.memo() 无法拦截注入到 Context 的 state 的变化。
+
+我们可以用 useMemo 来继续优化直接使用父组件的state带来的性能问题。
+```javascript
+import React, { useContext, useEffect, useMemo } from 'react';
+
+import { MyContext } from './context-manager';
+
+export default function Child(props = {}){
+    const { state, dispatch, fetchData } = useContext(MyContext);
+
+    useEffect(() => {
+        fetchData().then((res) => {
+            console.log(`FETCH DATA: ${res}`);
+        })
+    }, []);
+
+    return useMemo(() => {
+        console.log('re-render')
+        return (
+            <div>
+                <p>count is : {state.count}</p>
+                <hr />
+                <div>
+                    <button onClick={() => { dispatch({ type: 'add' })}}>child Add</button>
+                </div>
+            </div>
+        );
+    }, [state.count, dispatch]);
+    
+};
+```
+
+这样 state.count 没产生变化的时候，是不会触发重新渲染的。
