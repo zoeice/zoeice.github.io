@@ -26,12 +26,11 @@ Hook是React 16.8的新特性，它可以让你在不编写 class 的情况下�
 >有些是上面基础 Hook 的变体，有些则仅在特殊情况下会用到。
 
 1. [useReducer](/react-hook-useReducer/)
-2. useCallback
-3. useMemo
-4. useRef
-5. useImperativeHandle
-6. useLayoutEffect
-7. useDebugValue
+2. [useCallback和useMemo](/react-hook-useCallback/)
+3. useRef
+4. useImperativeHandle
+5. useLayoutEffect
+6. useDebugValue
 
 自定义Hook
 
