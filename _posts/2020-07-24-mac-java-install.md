@@ -3,7 +3,7 @@ layout:     post
 title:      Mac上安装Java以及多版本切换
 subtitle:   Java环境配置
 description: Mac上打开终端，输入 java -version, 如果有显示Java版本信息，则系统已经有java环境，如果显示异常，则需要重新安装。
-date:        2020-07-24 14:38:00
+date:        2020-07-25 20:00:00
 author:     zoeice
 image:      https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/post-bg-java.jpg
 optimized_image: https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/post-bg-java.jpg?x-oss-process=image/resize,w_380
