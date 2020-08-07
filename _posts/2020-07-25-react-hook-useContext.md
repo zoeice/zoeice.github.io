@@ -222,10 +222,10 @@ export default function Child(props = {}){
 };
 ```
 
-这样父子组件都可以控制父组件Parent里的state了。
-我们发现子组件没有React.memo()了。这是因为 React.memo() 无法拦截注入到 Context 的 state 的变化。
+这样父子组件都可以控制父组件Parent里的 `state` 了。
+我们发现子组件没有 `React.memo()` 了。这是因为 `React.memo()` 无法拦截注入到 Context 的 `state` 的变化。
 
-我们可以用 useMemo 来继续优化直接使用父组件的state带来的性能问题。
+我们可以用 `useMemo` 来继续优化直接使用父组件的state带来的性能问题。
 ```javascript
 import React, { useContext, useEffect, useMemo } from 'react';
 
@@ -256,4 +256,4 @@ export default function Child(props = {}){
 };
 ```
 
-这样 state.count 没产生变化的时候，是不会触发重新渲染的。
+这样 `state.count` 没产生变化的时候，是不会触发重新渲染的。

@@ -13,7 +13,7 @@
   padding-bottom: rem(32px);
 
   @include media(">=sm") {
-    max-width: rem(1100px);
+    max-width: rem(1300px);
     flex-direction: row;
     margin: 0 auto;
     padding: rem(32px) 0;
@@ -66,7 +66,7 @@
   ul,
   ol,
   iframe {
-    @include center(rem(800px));
+    @include center(rem(1000px));
     @include mainFont(400);
     font-size: rem(15px);
     line-height: rem(30px);
@@ -76,7 +76,7 @@
 
     @include media(">=sm") {
       font-size: rem(18px);
-      line-height: rem(40px);
+      line-height: rem(30px);
       margin: rem(10px) auto 0;
     }
   }
@@ -140,10 +140,11 @@
 
     code {
       font-size: rem(13px);
-      background: #282a36;
-      color: #fff;
+      color: #b84860;
+      background: #f8f2f4;
+      border: none;
       word-wrap: break-word;
-      padding: rem(3px) rem(5px);
+      padding: rem(2px) rem(5px);
       border-radius: 3px;
 
       @include media(">=sm") {
@@ -187,11 +188,13 @@
   h6 {
     @include mainFont(700);
     margin-top: 0;
-    padding-top: rem(40px);
+    padding-top: rem(16px);
+    padding-bottom: 0.1875em;
+    border-bottom: 1px solid #EBEBF2;
 
     @include media(">=sm") {
       margin-top: 0;
-      padding-top: rem(50px);
+      padding-top: rem(20px);
     }
   }
   h1 {
@@ -233,22 +236,22 @@
   }
 
   blockquote {
-    @include center(rem(730px));
-    border-left: rem(5px) solid $texts;
-    padding: 0 rem(10px);
+    @include center(rem(930px));
+    padding: rem(6px) rem(10px);
     margin: rem(16px) auto;
+    border-left: rem(10px) solid #efebd8;
+    background-color: #fcf8e3;
     width: 90%;
 
     @include media(">=sm") {
       width: 100%;
-      margin: rem(24px) auto;
-      padding: 0 rem(20px);
+      padding: rem(10px) rem(20px);
     }
 
     p {
       font-size: rem(14px);
-      color: rgba(0, 0, 0, 0.6);
-      margin: 0;
+      color: #465261;
+      margin: 0 auto;
       @include media(">=sm") {
         font-size: rem(16px);
       }
@@ -256,7 +259,7 @@
   }
 
   hr {
-    @include center(rem(760px));
+    @include center(rem(960px));
     border: 1px solid $lightGray;
     margin: 40px auto;
   }
@@ -434,7 +437,7 @@
       }
       .h1_nav {
         margin-left: 0;
-        font-size: rem(13px);
+        font-size: rem(14px);
       }
       .h2_nav {
         margin-left: 0;
@@ -446,18 +449,18 @@
       }
       .h4_nav {
         margin-left: 32px;
-        font-size: rem(12px);
+        font-size: rem(14px);
       }
       .h5_nav {
         margin-left: 48px;
-        font-size: rem(12px);
+        font-size: rem(14px);
         a {
           max-width: rem(180px);
         }
       }
       .h6_nav {
         margin-left: 48px;
-        font-size: rem(12px);
+        font-size: rem(14px);
         a {
           max-width: rem(180px);
         }
@@ -708,7 +711,7 @@
 
 .post-content {
   .tags {
-    @include center(rem(800px));
+    @include center(rem(1000px));
     @include mainFont(400);
     font-size: rem(18px);
     margin: 0 auto rem(29px);
@@ -746,7 +749,7 @@
 
   .tag-title {
     @include mainFont(300);
-    @include center(rem(800px));
+    @include center(rem(1000px));
     font-size: rem(30px);
     margin-top: rem(20px);
     padding: 0 rem(10px);
@@ -810,7 +813,7 @@
     padding-bottom: rem(40px);
   
     @include media(">=sm") {
-      max-width: rem(1100px);
+      max-width: rem(1300px);
       flex-direction: row;
       margin: 0 auto;
       padding: rem(40px) 0;

@@ -10,10 +10,11 @@ pre {
     font-size: rem(14px);
     padding: rem(14px) 0;
     margin: rem(30px) 0;
+    border-radius: rem(4px);
   }
 
   code {
-    @include center(rem(800px));
+    @include center(rem(1000px));
     padding: 0 rem(20px);
 
     @include media("<sm") {
@@ -28,11 +29,11 @@ pre {
 }
 
 .highlight {
-  margin: rem(16px) 0;
+  margin: rem(8px) 0;
 
   @include media(">=sm") {
     word-wrap: break-word;
-    margin: rem(24px) 0;
+    margin: rem(12px) 0;
   }
 
   .hll {

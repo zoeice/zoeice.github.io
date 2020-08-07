@@ -23,8 +23,8 @@ tags:
 
 ## 源码分析
 
-为了清楚一点，我们来看下`useCallback`和`useMemo`的源码 ReactFiberHooks.new.js：
-```javascript
+为了清楚一点，我们来看下 `useCallback` 和 `useMemo` 的源码 ReactFiberHooks.new.js：
+```js
 function updateCallback<T>(
     callback: T, 
     deps: Array<mixed> | void | null
@@ -74,24 +74,26 @@ const HooksDispatcherOnUpdate: Dispatcher = {
 
 细心的已经可以看出二者的不同之处了。<br>
 
-1. 看下`updateCallback`里这句：
-```javascript
+1. 看下 `updateCallback` 里这句：
+
+```js
 hook.memoizedState = [callback, nextDeps];
 ```
 
-    **缓存的是传入函数的引用。**<br>
-    这样有什么用处呢？<br>
-    - 如果依赖项没有变化，走的就缓存函数的逻辑。<br>
-    - 只有依赖项变化，才会重新调用新的函数。<br>
+**缓存的是传入函数的引用。**<br>
+这样有什么用处呢？<br>
+- 如果依赖项没有变化，走的就缓存函数的逻辑。<br>
+- 只有依赖项变化，才会重新调用新的函数。<br>
 
-2. 看下`updateMemo`里这句：
-```javascript
+2. 看下 `updateMemo` 里这句：
+
+```js
 hook.memoizedState = [nextValue, nextDeps];
 ```
 
-    **缓存的是的 传入函数nextCreate()的返回值。**<br>
-    - 如果依赖项没有变化，是不会执行计算函数的，直接用缓存的值。<br>
-    - 只有依赖项变化才会调用重新计算函数。
+**缓存的是的 传入函数nextCreate()的返回值。**<br>
+- 如果依赖项没有变化，是不会执行计算函数的，直接用缓存的值。<br>
+- 只有依赖项变化才会调用重新计算函数。
 
 ## 应用场景
 
@@ -227,8 +229,8 @@ export default Compute;
 ```
 
 `computeCount(count){}` 的入参是count<br>
-点击「addCount」按钮为改变count, 会执行到`computeCount()`<br>
-但是，点击「addOther」按钮，和count没有关系，也会执行到`computeCount()`，这就有多点累赘了，还浪费资源影响性能。
+点击「addCount」按钮为改变count, 会执行到 `computeCount()`<br>
+但是，点击「addOther」按钮，和count没有关系，也会执行到 `computeCount()` ，这就有多点累赘了，还浪费资源影响性能。
 
 我们用useMemo改造一下：
 ```js
@@ -271,5 +273,5 @@ export default Compute;
 ```
 
 运行下看看效果：<br>
-点击「addCount」按钮为改变count, 会执行到`computeCount()`<br>
-但是，点击「addOther」按钮，不会执行到`computeCount()`，性能得以提升。
+点击「addCount」按钮为改变count, 会执行到 `computeCount()`<br>
+但是，点击「addOther」按钮，不会执行到 `computeCount()` ，性能得以提升。

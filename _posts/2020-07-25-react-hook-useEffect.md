@@ -61,9 +61,10 @@ class Example extends React.Component {
 export default Example;
 ```
 
-我们发现在类组件里需要在两个生命周期里写重复的代码，因为我们希望在加载和更新时执行相同的操作。<br>
+我们发现在类组件里需要在两个生命周期里写重复的代码，因为我们希望在加载和更新时执行相同的操作。
 
-我们看一下如何使用useEffect执行相同的操作<br>
+我们看一下如何使用useEffect执行相同的操作
+
 **使用 Hook 的示例**
 ```javascript
 import React, { useState, useEffect } from 'react';

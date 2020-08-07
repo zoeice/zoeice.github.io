@@ -48,7 +48,7 @@ body {
   ol,
   iframe,
   div[class^="css"] {
-    @include center(rem(800px));
+    @include center(rem(1000px));
     @include mainFont(400);
     font-size: rem(17px);
     line-height: rem(30px);
@@ -206,7 +206,7 @@ body {
   }
 
   blockquote {
-    @include center(rem(730px));
+    @include center(rem(930px));
     border-left: rem(5px) solid $texts;
     padding: 0 rem(10px);
     margin: rem(30px) auto;

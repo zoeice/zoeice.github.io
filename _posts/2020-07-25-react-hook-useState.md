@@ -151,8 +151,8 @@ export default Example
 >严格模式(StrictMode)仅在开发模式下运行；它们不会影响生产构建。
 
 **问题2**：<br>
-第一次点Add后，num从0变到1， 日志出现了 2次`do render >>`<br>
-第二次点Add后，num还是1没变化，日志还是出现了 2次`do render >>`<br>
+第一次点Add后，num从0变到1， 日志出现了 2次 `do render >>`<br>
+第二次点Add后，num还是1没变化，日志还是出现了 2次 `do render >>`<br>
 第三次点Add后，num还是1没变化，就没有日志了 <br>
 问题持续关注：[useState not bailing out when state does not change](https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Ffacebook%2Freact%2Fissues%2F14994)
 
