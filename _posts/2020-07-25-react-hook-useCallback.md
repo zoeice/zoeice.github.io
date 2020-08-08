@@ -275,3 +275,58 @@ export default Compute;
 运行下看看效果：<br>
 点击「addCount」按钮为改变count, 会执行到 `computeCount()`<br>
 但是，点击「addOther」按钮，不会执行到 `computeCount()` ，性能得以提升。
+
+## 其他思考
+### 如何测量 DOM 节点？
+获取 DOM 节点的位置或是大小的基本方式是使用 callback ref。每当 ref 被附加到一个另一个节点，React 就会调用 callback。这里有一个 小 demo:
+
+```js
+function MeasureExample() {
+    const [height, setHeight] = useState(0);
+
+    const measuredRef = useCallback(node => {
+        if (node !== null) {
+            setHeight(node.getBoundingClientRect().height);
+        }
+    }, []);
+
+    return (
+        <>
+            <h1 ref={measuredRef}>Hello, world</h1>
+            <h2>The above header is {Math.round(height)}px tall</h2>
+        </>
+    );
+}
+```
+
+在这个案例中，我们没有选择使用 useRef，因为当 ref 是一个对象时它并不会把当前 ref 的值的 变化 通知到我们。使用 callback ref 可以确保 即便子组件延迟显示被测量的节点 (比如为了响应一次点击)，我们依然能够在父组件接收到相关的信息，以便更新测量结果。
+
+注意到我们传递了 [] 作为 useCallback 的依赖列表。这确保了 ref callback 不会在再次渲染时改变，因此 React 不会在非必要的时候调用它。
+
+>在此示例中，仅在安装和卸载组件时才调用回调ref，因为渲染的<h1>组件在所有重新渲染期间均保持存在。 如果您希望在组件调整大小时收到通知，则可能需要使用ResizeObserver或基于其构建的第三方Hook。
+
+
+如果你愿意，你可以 把这个逻辑抽取出来作为 一个可复用的 Hook:
+```js
+function MeasureExample() {
+    const [rect, ref] = useClientRect();
+    return (
+        <>
+            <h1 ref={ref}>Hello, world</h1>
+            {rect !== null &&
+                <h2>The above header is {Math.round(rect.height)}px tall</h2>
+            }
+        </>
+    );
+}
+
+function useClientRect() {
+    const [rect, setRect] = useState(null);
+    const ref = useCallback(node => {
+        if (node !== null) {
+            setRect(node.getBoundingClientRect());
+        }
+    }, []);
+    return [rect, ref];
+}
+```

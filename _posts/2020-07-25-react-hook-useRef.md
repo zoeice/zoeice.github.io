@@ -45,18 +45,14 @@ function TextInputWithFocusButton() {
 }
 ```
 
-本质上，`useRef` 就像是可以在其 `.current` 属性中保存一个可变值的“盒子”。<br><br>
-
 你应该熟悉 ref 这一种访问 DOM 的主要方式。如果你将 ref 对象以 `<div ref={myRef} />` 形式传入组件，则无论该节点如何改变，React 都会将 `ref` 对象的 `.current` 属性设置为相应的 DOM 节点。<br><br>
+然而，`useRef()` 比 `ref` 属性更有用。`useRef()` 会在每次渲染时返回同一个 `ref` 对象。
 
-然而，`useRef()` 比 `ref` 属性更有用。它可以很方便地保存任何可变值，其类似于在 class 中使用实例字段的方式。<br><br>
-
-这是因为它创建的是一个普通 Javascript 对象。而 `useRef()` 和自建一个 `{current: ...}` 对象的唯一区别是，`useRef` 会在每次渲染时返回同一个 `ref` 对象。<br><br>
-
-请记住，当 `ref` 对象内容发生变化时，`useRef` 并不会通知你。变更 `.current` 属性不会引发组件重新渲染。如果想要在 React 绑定或解绑 DOM 节点的 ref 时运行某些代码，则需要使用回调 ref 来实现。
+>注意：<br>当 `ref` 对象内容发生变化时，`useRef` 并不会通知你。<br>变更 `.current` 属性不会引发组件重新渲染。
 
 
-### 区分首次渲染还是后续渲染
+### 可以只在更新时运行 effect 吗？
+这是个比较罕见的使用场景。
 你可以创建一个可变的ref存储布尔值来区分组件是首次渲染还是后续的渲染
 ```js
 import React, { useState, useRef } from 'react';
@@ -176,3 +172,37 @@ function usePrevious (value) {
 
 export default Example;
 ```
+
+### 处理实例
+「ref」 对象是一个 current 属性可变且可以容纳任意值的通用容器，类似于一个 class 的实例属性。
+
+你可以在 useEffect 内部对其进行写入:
+```js
+function Timer() {
+    const intervalRef = useRef();
+
+    useEffect(() => {
+        const id = setInterval(() => {
+            // ...
+        });
+        intervalRef.current = id;
+        return () => {
+            clearInterval(intervalRef.current);
+        };
+    });
+
+    // ...
+}
+```
+
+如果我们只是想设定一个循环定时器，我们不会需要这个 ref（id 可以是在 effect 本地的），但如果我们想要在一个事件处理器中清除这个循环定时器的话这就很有用了：
+
+```js
+// ...
+function handleCancelClick() {
+    clearInterval(intervalRef.current);
+}
+// ...
+```
+
+从概念上讲，你可以认为 refs 就像是一个 class 的实例变量。除非你正在做 懒加载，否则避免在渲染期间设置 refs —— 这可能会导致意外的行为。相反的，通常你应该在事件处理器和 effects 中修改 refs。

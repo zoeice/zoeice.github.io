@@ -126,3 +126,17 @@ export default Example;
 
 需要注意的是，React 可能仍需要在跳过渲染前再次渲染该组件。不过由于 React 不会对组件树的“深层”节点进行不必要的渲染，所以大可不必担心。如果你在渲染期间执行了高开销的计算，则可以使用 `useMemo` 来进行优化。
 
+## 其他思考
+### 有没有类似强制更新的方式？
+如果前后两次的值相同，useState 和 useReducer Hook 都会放弃更新。那可以不可以强制更新呢？
+
+如果真的有这样的需求，可以用一个增长的计数器在 state 没发生变化的时候依然可以实现强制更新：
+```js
+const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+
+function handleClick() {
+    forceUpdate();
+}
+```
+
+>不过虽然能实现，依然不推荐这一种方式

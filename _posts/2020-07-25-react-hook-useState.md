@@ -283,3 +283,28 @@ function Example() {
 export default Example
 ```
 这样看起来好多了，可以把 `useStateWithCallback` 抽离到独立文件，整个项目都可以调用。
+
+## 其他思考
+
+### 如何惰性创建昂贵的对象？
+第一个常见的使用场景是当创建初始 state 很昂贵时：
+```js
+function Table(props) {
+    // ⚠️ createRows() 每次渲染都会被调用
+    const [rows, setRows] = useState(createRows(props.count));
+    // ...
+}
+```
+
+这样函数每次都会执行到，产生不必要的消耗。<br>
+为避免重新创建被忽略的初始 state，我们可以传一个 函数 给 useState：
+
+```js
+function Table(props) {
+    // ✅ createRows() 只会被调用一次
+    const [rows, setRows] = useState(() => createRows(props.count));
+    // ...
+}
+```
+
+React 只会在首次渲染时调用这个函数。
