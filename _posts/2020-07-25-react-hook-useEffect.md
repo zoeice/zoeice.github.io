@@ -29,7 +29,7 @@ tags:
 
 这就是为什么在 React class 中，我们把副作用操作放到 `componentDidMount` 和 `componentDidUpdate` 函数中。回到示例中，这是一个 React 计数器的 class 组件。它在 React 对 DOM 进行操作之后，立即更新了 document 的 title 属性
 
-```javascript
+~~~js
 import React from 'react'
 
 class Example extends React.Component {
@@ -59,14 +59,13 @@ class Example extends React.Component {
     }
 }
 export default Example;
-```
-
+~~~
 我们发现在类组件里需要在两个生命周期里写重复的代码，因为我们希望在加载和更新时执行相同的操作。
 
 我们看一下如何使用 `useEffect` 执行相同的操作
 
 **使用 Hook 的示例**
-```javascript
+~~~js
 import React, { useState, useEffect } from 'react';
 
 function Example() {
@@ -86,7 +85,7 @@ function Example() {
     );
 }
 export default Example;
-```
+~~~
 
 `useEffect` 跟 class 组件中的 `componentDidMount`、`componentDidUpdate` 和 `componentWillUnmount` 具有相同的用途，只不过被合并成了一个 API。<br>
 
@@ -100,7 +99,7 @@ export default Example;
 
 比如我们有一个 ChatAPI 模块，它可以订阅好友的在线状态
 
-```javascript
+~~~js
 class FriendStatus extends React.Component {
     constructor(props) {
         super(props);
@@ -136,10 +135,10 @@ class FriendStatus extends React.Component {
     }
 }
 export default FriendStatus;
-```
+~~~
 
 **使用 Hook 的示例**
-```javascript
+~~~js
 import React, { useState, useEffect } from 'react';
 
 function FriendStatus(props) {
@@ -164,7 +163,7 @@ function FriendStatus(props) {
     return isOnline ? 'Online' : 'Offline';
 }
 export default FriendStatus;
-```
+~~~
 
 这样就可以把添加和移除订阅的逻辑放在一起了。
 
@@ -178,7 +177,7 @@ export default FriendStatus;
 
 下面代码是前面的计数器和好友在线状态指示器的逻辑组合在一起的组件：
 在class组件里的示例：
-```javascript
+~~~js
 class FriendStatusWithCounter extends React.Component {
     constructor(props) {
         super(props);
@@ -227,7 +226,7 @@ class FriendStatusWithCounter extends React.Component {
     }
 }
 export default Example;
-```
+~~~
 
 我们可以看到 `componentDidMount()` 包含了两个不同功能的代码。
 用Hook可以使用多个 `effect`，把不相关的逻辑分离到不同的 `effect` 中。
