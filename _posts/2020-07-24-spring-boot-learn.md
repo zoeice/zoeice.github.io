@@ -55,6 +55,12 @@ Dependencies选择 Developer Tools -> Web -> Spring Web
 `IntelliJ preferences` > `Build, Execution, Deployment` > `Compiler` > `Kotlin Compiler`<br>
 `Target JVM version` 改为 1.8， 点击 `Apply`。 就解决了。
 
+>**Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.**, 可以这样操作：<br>
+`Run/Debug Configurations` > `xxApplication` > `Configuration` > `Environment` > `VM Options`里加上
+~~~shell
+-Ddebug=true
+~~~
+
 
 ### 项目结构
 ![项目结构](https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/content/post-spring-project-catalog.jpg)
@@ -69,7 +75,7 @@ Dependencies选择 Developer Tools -> Web -> Spring Web
 ### 试着编写一个Http接口
 创建src/main/java/com.onetree.springbootdemo下建个controller和model的目录 
 在model目录添加 **PersonModel** 类作为数据模型，编写如下：
-```kotlin
+~~~kotlin
 package com.onetree.springbootdemo.model
 
 class PersonModel {
@@ -81,12 +87,12 @@ class PersonModel {
         this.name = name
     }
 }
-```
+~~~
 
 在该包名下创建 **PersonController** 类作为配置restful接口，编写如下：
 >注意：springboot的启动的Application必须放在controller类的目录外面，要不然扫描不到
 
-```kotlin
+~~~kotlin
 package com.onetree.springbootdemo.controller
 
 import com.onetree.springbootdemo.model.PersonModel
@@ -123,26 +129,26 @@ class PersonController {
     }
 
 }
-```
+~~~
 点击Idea里的`run`按钮或者在工程根目录执行命令： `./mvnw spring-boot:run`来运行项目
 用postman等工具请求 `http://localhost:8080/person/welcome`, 可以看到返回的 `Welcome Gay`
 其他接口也用类似的请求方式
 
 Get也可以直接执行命令：
-```shell
+~~~shell
 curl localhost:8080/person/welcome
-```
+~~~
 如果是Post请求，可以执行：
-```shell
+~~~shell
 curl -H "Content-Type:application/json" -X POST -d'{"name": "lili"}' localhost:8080/person/add
-```
+~~~
 都可以成功看到结果。
 
 ### 编写单元测试用例
 这里引入一个日志的注解来简化日志调用。
 1. 在build.gradle.kts里加入如下代码导入依赖
 
-```groovy
+~~~groovy
 dependencies {
 	...
 	compileOnly("org.projectlombok:lombok")
@@ -150,7 +156,7 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	testAnnotationProcessor("org.projectlombok:lombok")
 }
-```
+~~~
 
 如果注解@Slf4j注入后找不到变量log，需要IDEA安装lombok插件，
 Prefences -> Plugins -> Marketplace 里搜索 **lombok**插件，如下图
@@ -158,7 +164,7 @@ Prefences -> Plugins -> Marketplace 里搜索 **lombok**插件，如下图
 完成安装后重启IDEA
 
 写个单例测试上面的`person/findByName`等接口：
-```kotlin
+~~~kotlin
 package com.onetree.springbootdemo
 
 import org.junit.jupiter.api.Test
@@ -243,7 +249,7 @@ internal class SpringdemoApplicationTests {
 		}
 	}
 }
-```
+~~~
 
 在 findByName() 上运行 `Run Test`, 看到日志：
 `[           main] c.o.s.SpringdemoApplicationTests         : findByName Result: Jack`
