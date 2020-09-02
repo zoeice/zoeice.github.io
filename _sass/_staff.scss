@@ -1,6 +1,6 @@
 .staff {
   @include media(">=sm") {
-    @include center(rem(800px));
+    @include center(rem(1000px));
   }
 
   .item:not(:last-child) {

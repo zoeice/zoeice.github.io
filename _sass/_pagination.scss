@@ -44,7 +44,7 @@
     padding: rem(15px) rem(20px) rem(30px);
 
     @include media(">=sm") {
-      @include center(rem(800px));
+      @include center(rem(1000px));
     }
 
     a {
