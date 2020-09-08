@@ -76,25 +76,45 @@ defineProperty接受三个参数：
 
 >一个没有get/set/value/writable定义的属性被称为"通用的"，并被认为是一个数据描述符
 
-## 类的装饰
+## @Decorator在class中使用
 装饰器可以用来装饰整个类。
+
+### 新增属性
 ~~~js
-@testable
-class MyTestableClass {
+@name
+class Cat {
   // ...
 }
 
-function testable(target) {
-  target.isTestable = true;
+function name(target) {
+  target.name = "MiaoMiao";
 }
 
-// 显示true
-console.log(MyTestableClass.isTestable)
+// 显示"MiaoMiao"
+console.log(Cat.name)
 ~~~
 上面代码中，`@testable` 就是一个装饰器。它修改了 `MyTestableClass` 这个类的行为，为它加上了静态属性 `isTestable`。`testable` 函数的参数 `target`是 `MyTestableClass` 类本身。
 
+### 修改原有属性的描述符
+~~~js
+@seal
+class Person {
+  sayHi() {}
+}
 
-## 方法的装饰
+function seal(constructor) {
+  let descriptor = Object.getOwnPropertyDescriptor(constructor.prototype, 'sayHi')
+  Object.defineProperty(constructor.prototype, 'sayHi', {
+    ...descriptor,
+    writable: false
+  })
+}
+
+Person.prototype.sayHi = 1 // 无效
+~~~
+
+
+## @Decorator在class属性中使用
 装饰器不仅可以装饰类，还可以装饰类的属性。
 比如我们把 `meow()` 设置成只读，如果使用装饰器的话可以这样写：
 ~~~js
@@ -132,3 +152,31 @@ Object.defineProperty(Cat.prototype, "meow", descriptor);
 - 如果装饰器作用在类本身，我们操作的对象也是类本身。
 - 如果装饰器作用在类的某个具体方法时，我们操作的对象是它的描述符（descriptor）。
 
+## 使用示例
+下面看一些常用的使用案例
+
+### 输出日志
+~~~js
+class Math {
+  @log
+  add(a, b) {
+    return a + b;
+  }
+}
+
+function log(target, name, descriptor) {
+  var oldValue = descriptor.value;
+
+  descriptor.value = function() {
+    console.log(`Calling ${name} with`, arguments);
+    return oldValue.apply(this, arguments);
+  };
+
+  return descriptor;
+}
+
+const math = new Math();
+
+// passed parameters should get logged now
+math.add(2, 4);
+~~~
