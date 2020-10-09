@@ -72,7 +72,30 @@ const [count, setCount] = useState(initialValue);
 
 ## 遇到的疑问：
 
-### 1. setState是“异步”的，同步使用会有问题， 比如：
+### 1. useState里数据务必为immutable
+虽然class->Component的state也提倡使用immutable数据，但不是强制的，因为只要调用了setState就会触发更新。但是使用useState时，如果在更新函数里传入同一个对象将无法触发更新。
+
+举个例子
+~~~js
+const [list, setList] = useState([9,2,11,5,4,8,12,0]);
+return (
+    <>
+        <ol>
+            {list && list.map(v => <li key={v}>{v}</li>)}
+        </ol>
+        <button
+            onClick={() => {
+                // Bad 这样无法触发更新
+                setList(list.sort((a, b) => a - b));
+                // Good 必须传入一个新的对象
+                setList(list.slice().sort((a, b) => a - b));
+            }}
+        >sort</button>
+    </>
+)
+~~~
+
+### 2. setState是“异步”的，同步使用会有问题， 比如：
 ```javascript
 import React, { useState } from 'react';
 
@@ -117,7 +140,7 @@ function add(){
 ```
 这样就执行正常了。
 
-### 2. state的值变化后的渲染
+### 3. state的值变化后的渲染
 我们知道state里的值没发生变化，是不会执行组件函数了
 ```javascript
 import React, { useState } from 'react';
@@ -156,7 +179,7 @@ export default Example
 第三次点Add后，num还是1没变化，就没有日志了 <br>
 问题持续关注：[useState not bailing out when state does not change](https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Ffacebook%2Freact%2Fissues%2F14994)
 
-### 3.state的同步和“异步”
+### 4.state的同步和“异步”
 ```javascript
 import React, { useState } from 'react';
 
@@ -218,7 +241,7 @@ async update num2
 
 只在合成事件和钩子函数中是“异步”的，在原生事件和 setTimeout 中都是同步的。
 
-### 4.如何拿到useState更新后的值
+### 5.如何拿到useState更新后的值
 原生的state可以用过setState(partialState, callback)里的callback及时拿到更新后的值，但是在useState里怎么拿到呢？
 可以使用useEffect模拟
 
@@ -308,3 +331,11 @@ function Table(props) {
 ```
 
 React 只会在首次渲染时调用这个函数。
+
+### 第一次render前执行代码实现
+类似class->Component里的 `constructor` 和 `componentWillMount` 的生命周期
+~~~js
+useState(() => {
+  console.log('do once before render')
+});
+~~~

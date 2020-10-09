@@ -113,6 +113,37 @@ function seal(constructor) {
 Person.prototype.sayHi = 1 // 无效
 ~~~
 
+### 使用闭包来实现mixin
+~~~js
+class A { say() { return 1 } }
+class B { hi() { return 2 } }
+
+@mixin(A, B)
+class C { }
+
+function mixin(...args) {
+    return function(constructor) {
+        for (let arg of args) {
+            for (let key of Object.getOwnPropertyNames(arg.prototype)) {
+                // 跳过构造函数
+                if (key === 'constructor') continue 
+                Object.defineProperty(constructor.prototype, key, Object.getOwnPropertyDescriptor(arg.prototype, key))
+            }
+        }
+    }
+}
+
+let c = new C()
+console.log(c.say(), c.hi()) // 1, 2
+~~~
+
+## 多个装饰器同时使用
+~~~js
+@decorator1
+@decorator2
+class { }
+~~~
+执行的顺序为decorator2 -> decorator1，离class定义最近的先执行。
 
 ## @Decorator在class属性中使用
 装饰器不仅可以装饰类，还可以装饰类的属性。
@@ -180,3 +211,8 @@ const math = new Math();
 // passed parameters should get logged now
 math.add(2, 4);
 ~~~
+
+>参考资料：<br>
+[Javascript装饰器的妙用](https://juejin.im/post/6844903635168526343#heading-17)<br>
+[proposal-decorators](https://github.com/tc39/proposal-decorators)<br>
+[JS 装饰器，一篇就够](https://segmentfault.com/a/1190000014495089)

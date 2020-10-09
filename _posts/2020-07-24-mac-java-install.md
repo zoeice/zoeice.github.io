@@ -20,20 +20,20 @@ Mac上打开终端，输入`java -version`, 如果有显示Java版本信息，�
 
 ## 安装
 如果没有安装，可以去这里下载指定版本 [JDK官方下载](https://www.oracle.com/java/technologies/javase-downloads.html)
-我们以java11为例子：
-找到 **Java SE 11(LTS)**, 点击 **JDK Download**
-![](https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/content/post-java-11tls.jpg)
+我们以java14为例子：
+找到 **Java SE 14**, 点击 [**JDK Download**](https://www.oracle.com/java/technologies/javase-jdk14-downloads.html)
 
-下载到 jdk-11.0.8_osx-x64_bin.dmg， 打开安装，一路Next
+找到 **macOS Installer** 对应的行
+下载到 jdk-14.0.2_osx-x64_bin.dmg， 打开安装，一路Next
 按键装好后继续用`java -version`看下环境有没有问题
 
 ## 配置环境
 如果还是显示异常。
 执行`open ~/.bash_profile`做环境配置，输入：
-```shell
+~~~shell
 # Java
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home"
-```
+~~~
 然后执行命令`source ~/.bash_profile`让配置生效。
 再次执行`java -version`就发现版本显示正常了。
 
@@ -42,15 +42,18 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home
 ## 多版本Java切换
 如果安装有多个java版本，怎么切换呢
 执行`open ~/.bash_profile`做环境配置，输入
-```shell
-# Java
+~~~shell
+# Java:
 export JAVA_11_HOME="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home"
 export JAVA_13_HOME="/Library/Java/JavaVirtualMachines/jdk-13.0.2.jdk/Contents/Home"
-export JAVA_HOME=$JAVA_11_HOME
+export JAVA_14_HOME="/Library/Java/JavaVirtualMachines/jdk-14.0.2.jdk/Contents/Home"
+export JAVA_HOME=$JAVA_14_HOME
 alias jdk11="export JAVA_HOME=$JAVA_11_HOME"
 alias jdk13="export JAVA_HOME=$JAVA_13_HOME"
-```
+alias jdk14="export JAVA_HOME=$JAVA_14_HOME"
+~~~
+
 然后执行命令`source ~/.bash_profile`让配置生效。
-接下来就可以执行命令`jdk11`或者`jdk13`来切换java版本了。
+接下来就可以执行命令`jdk11`或者`jdk13`或者`jdk14`来切换java版本了。
 ![](https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/content/post-java-jdk11.jpg)
 ![](https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/content/post-java-jdk13.jpg)
