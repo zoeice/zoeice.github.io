@@ -10,11 +10,11 @@ tags:
   - netlify
 show_hero: true
 menu:
-  - title: Home
+  - title: 首页
     url: /
-  - title: About
+  - title: 关于
     url: /about
-  - title: Contact
+  - title: 联系我们
     url: /contact
   - title: Feed
     url: /feed.xml
@@ -99,5 +99,5 @@ exclude: [
   'README.md'
 ]
 
-# Theme
-version: v3.1.0
+# Theme v3.1.0
+version: Blog
