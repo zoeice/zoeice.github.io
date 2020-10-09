@@ -3,7 +3,7 @@ layout:     post
 title:      SpringBoot + Gradle学习记录
 subtitle:   简化的Spring配置
 description: 通过Spring Boot可以轻松地创建和运行独立的，可以商用的应用程序
-date:        2020-07-24 11:56:00
+date:        2020-07-28 11:56:00
 author:     zoeice
 image:      https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/post-bg-spring.jpg
 optimized_image: https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/post-bg-spring.jpg?x-oss-process=image/resize,w_380
