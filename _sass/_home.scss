@@ -64,7 +64,7 @@
 
     img {
       -webkit-filter: grayscale(100%);
-      filter: grayscale(100%);
+      filter: blur(1rem);
       transform: scale(1.05);
     }
 
@@ -188,7 +188,7 @@
 
       .read-icon {
         opacity: 0;
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(255, 255, 255, 0.7);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -201,7 +201,6 @@
         left: 50%;
         margin-top: rem(-40px);
         margin-left: rem(-40px);
-        border: 2px solid #fff;
         color: $themeColor;
         z-index: 4;
 
