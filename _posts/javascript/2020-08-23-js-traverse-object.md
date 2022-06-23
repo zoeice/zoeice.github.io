@@ -19,17 +19,9 @@ tags:
 const obj = Object.create(
     {
         proto_enum: 'proto-enum-value',
-        [Symbol('proto_enum_s')]: 'proto-enum-symbol-value',
+        [Symbol('proto_enum_s')]: 'proto-enum-symbol-value'
     }, 
     {
-        enum: {
-            value: 'enum-value',
-            enumerable: true
-        },
-        [Symbol('enum_s')]: {
-            value: 'enum-symbol-value',
-            enumerable: true
-        },
         unenum:  {
             value: 'unenum-value',
             enumerable: false
@@ -40,6 +32,8 @@ const obj = Object.create(
         }
     }
 )
+obj.enum = 'enum-value'
+obj[Symbol('enum_s')] = 'enum-symbol-value'
 ```
 
 看控制台比较直观：
