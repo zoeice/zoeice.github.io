@@ -3,7 +3,7 @@ layout:     post
 title:      React Hook学习(索引)
 subtitle:   Hook是什么？有哪些？
 description: Hook是React 16.8的新特性，它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
-date:        2020-07-24 12:00:00
+date:        2019-04-24 12:00:00
 author:     zoeice
 image:      https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/post-bg-react.jpg
 optimized_image: https://zoeice-blog.oss-cn-shanghai.aliyuncs.com/post-bg-react.jpg?x-oss-process=image/resize,w_380
