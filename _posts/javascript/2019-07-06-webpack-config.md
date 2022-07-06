@@ -129,7 +129,7 @@ module.exports = {
 ### 打包less资源
 安装less相关库
 
-``bash
+```bash
 npm install css-loader style-loader less-loader less -D
 ```
 
